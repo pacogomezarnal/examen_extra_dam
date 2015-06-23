@@ -60,7 +60,7 @@ public class Principal extends JFrame {
 		JButton btnCercaDadesSocis = new JButton("Cerca dades socis");
 		btnCercaDadesSocis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Accions aFrame = new Accions();
+				AccionsSoci aFrame = new AccionsSoci();
 				aFrame.setVisible(true);
 				vPrincipal.dispose();
 			}

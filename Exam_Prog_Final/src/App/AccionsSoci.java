@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import Modelo.ModelSoci;
 import Modelo.Soci;
 
 import java.awt.event.ActionListener;
@@ -22,13 +23,17 @@ public class AccionsSoci extends JFrame {
 	private JTextField nomField;
 	private JLabel lblCognom;
 	private JTextField cogField;
-	private JTextField txtLocalitat;
+	private JTextField txtNom;
 	private JTextField txtCogNom;
-	private JTextField txtLocalitat_1;
+	private JTextField txtLocalitat;
 	private JButton button;
+	private JComboBox comboTipus;
 	
 	//Copia accesible de la ventana para el cerrado de la misma
 	private JFrame vAccionsSoci;
+	
+	ModelSoci mSoci=new ModelSoci();
+	Soci s;
 
 	/*
 	 * Metodo constructor
@@ -61,15 +66,24 @@ public class AccionsSoci extends JFrame {
 		contentPane.add(cogField);
 		
 		JButton btnNewButton = new JButton("Cerca");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				s=mSoci.consultaSoci(nomField.getText(), cogField.getText());
+				txtNom.setText(s.getLocalitat());
+				txtCogNom.setText(s.getCognom());
+				txtLocalitat.setText(s.getNom());
+				comboTipus.setSelectedItem(s.getTipusSoci());
+			}
+		});
 		btnNewButton.setBounds(10, 61, 89, 23);
 		contentPane.add(btnNewButton);
 		
-		txtLocalitat = new JTextField();
-		txtLocalitat.setText("Nom");
-		txtLocalitat.setEditable(false);
-		txtLocalitat.setColumns(10);
-		txtLocalitat.setBounds(10, 108, 178, 20);
-		contentPane.add(txtLocalitat);
+		txtNom = new JTextField();
+		txtNom.setText("Nom");
+		txtNom.setEditable(false);
+		txtNom.setColumns(10);
+		txtNom.setBounds(10, 108, 178, 20);
+		contentPane.add(txtNom);
 		
 		txtCogNom = new JTextField();
 		txtCogNom.setText("CogNom");
@@ -78,14 +92,14 @@ public class AccionsSoci extends JFrame {
 		txtCogNom.setBounds(242, 108, 178, 20);
 		contentPane.add(txtCogNom);
 		
-		txtLocalitat_1 = new JTextField();
-		txtLocalitat_1.setText("Localitat");
-		txtLocalitat_1.setEditable(false);
-		txtLocalitat_1.setColumns(10);
-		txtLocalitat_1.setBounds(10, 150, 178, 20);
-		contentPane.add(txtLocalitat_1);
+		txtLocalitat = new JTextField();
+		txtLocalitat.setText("Localitat");
+		txtLocalitat.setEditable(false);
+		txtLocalitat.setColumns(10);
+		txtLocalitat.setBounds(10, 150, 178, 20);
+		contentPane.add(txtLocalitat);
 		
-		JComboBox comboTipus = new JComboBox(Soci.TIPUS);
+		comboTipus = new JComboBox(Soci.TIPUS);
 		comboTipus.setBounds(10, 193, 76, 20);
 		contentPane.add(comboTipus);
 		

@@ -85,6 +85,40 @@ public class ModelSoci {
 		return s;
 	}
 	
+	public Soci consultaSoci(String nom,String cognom){
+		Soci s = new Soci();
+		String sqlSoci="";
+		try {
+			statement = conexion.createStatement();
+			if(((nom.trim()).length()>0)&&((cognom.trim()).length()>0))
+				sqlSoci="SELECT * from socis WHERE nom='"+nom+"'AND cognoms='"+cognom+"'";
+			else if(((nom.trim()).length()>0))
+				sqlSoci="SELECT * from socis WHERE nom='"+nom+"'";
+			else if(((cognom.trim()).length()>0))
+				sqlSoci="SELECT * from socis WHERE cognoms='"+cognom+"'";
+			resultado = statement.executeQuery(sqlSoci);
+			while (resultado.next()) {
+				// asignamos los dato a un nuevo cadete
+				s.setNom(resultado.getString(NOM));
+				s.setId(resultado.getInt(ID));
+				s.setCognom(resultado.getString(COGNOM));
+				s.setLocalitat(resultado.getString(LOCALITAT));
+				s.setTipusSoci(resultado.getString(TIPUS));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				statement.close();//cerramos statement
+				resultado.close();// cerramos resultset
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return s;
+	}
+	
 	public void actualitzaSoci(Soci s){
 		try {
 			String sqlUpdate="UPDATE socis set "+TIPUS+"=? WHERE "+ID+"="+s.getId();
